@@ -1,0 +1,14 @@
+/* Git Ignore files
+These files and sub files of folders will not be added to the git repository.
+Nor will these files be added to github.
+** NOTE -- Make sure to run 
+$ npm install 
+to get all or your dependencies loaded
+*/
+
+//All node_modules and sub files folders
+node_modules
+node_modules/*
+
+//all log files on root
+*.log
