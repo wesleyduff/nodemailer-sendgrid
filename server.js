@@ -75,7 +75,7 @@ app.use(flash());
     		message = "Email has been sent!";
     		console.log('Message sent: ' + info.response);
     	}
-        req.flash('info', message);
+        req.flash('info', { msg: message});
         res.redirect('contact');
       });
  });

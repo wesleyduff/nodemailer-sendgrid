@@ -1,8 +1,11 @@
 extends layout
 block content
-  if(messages.info)
-    .message.info
-      span= messages.info
+  if messages.info
+    .alert.alert-info.fade.in
+      button.close(type='button', data-dismiss='alert')
+        span.icon-close-circled
+      for info in messages.info
+        div= info.msg
   form(method='POST')
     legend Send Email
     .form-group
