@@ -1,6 +1,8 @@
 var express = require('express');
 var path = require('path');
 
+var nodemailer = require('nodemailer');
+var sgTransport = require('nodemailer-sendgrid-transport');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var methodOverride = require('method-override');
@@ -13,6 +15,7 @@ var errorHandler = require('errorhandler');
 Load controllers
 */
 var homeController = require('./controllers/home');
+var contactController = require('./controllers/contact');
 
 var app = express();
 
@@ -35,6 +38,46 @@ app.use(express.static(path.join(__dirname, 'public')));
  * Main routes.
  */
  app.get('/', homeController.index);
+ app.get('/contact', contactController.index)
+ app.post('/contact', function(req, res) {
+ 	var data = {
+ 		email: req.body.email,
+ 		subject: req.body.subject,
+ 		message: req.body.message
+ 	};
+ 	console.log('TEstging ..... ');
+ 	console.log(data.email);
+ 	//create the nodemailer
+ 	var client = nodemailer.createTransport(sgTransport({
+        auth: {
+          api_user: '<Your Email>',
+          api_key: '<Your Password>'
+        }
+    }));
+ 	var mailOptions = {
+        to: data.email,
+        from: 'fake@demo.com',
+        subject: data.subject,
+        text: data.message,
+        html: '<b>Hello</b>'
+    };
+    //send
+    client.sendMail(mailOptions, function(err, info) {
+    	//re-render contact page with message
+    	var message = null;
+    	if(err){
+    		message = "An error has occured " + err;
+    		console.log(err);
+    	} else {
+    		message = "Email has been sent!";
+    		console.log('Message sent: ' + info.response);
+    	}
+        res.render('contact', {
+         	title: "contact",
+    		message: "Email has been sent!"
+  		});
+      });
+ });
 
 // error handling middleware should be loaded after the loading the routes
 if ('development' == app.get('env')) {
