@@ -1,0 +1,13 @@
+extends layout
+block content
+  #{message}
+  form(method='POST')
+    legend Send Email
+    .form-group
+      label(for='email') Email
+      input.form-control(type='text', name='email', autofocus)
+      label(for='subject') Subject
+      input.form-control(type="text", name="subject")
+      label(for="message") message
+      textarea.form-control(name="message")
+    button.btn.btn-primary(type='submit') Send

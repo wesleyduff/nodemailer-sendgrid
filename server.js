@@ -50,8 +50,8 @@ app.use(express.static(path.join(__dirname, 'public')));
  	//create the nodemailer
  	var client = nodemailer.createTransport(sgTransport({
         auth: {
-          api_user: '<Your Email>',
-          api_key: '<Your Password>'
+          api_user: '<your username>',
+          api_key: '<your password>'
         }
     }));
  	var mailOptions = {
@@ -72,10 +72,8 @@ app.use(express.static(path.join(__dirname, 'public')));
     		message = "Email has been sent!";
     		console.log('Message sent: ' + info.response);
     	}
-        res.render('contact', {
-         	title: "contact",
-    		message: "Email has been sent!"
-  		});
+        req.message = message;
+        res.redirect('contact');
       });
  });
 
