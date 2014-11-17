@@ -1,6 +1,8 @@
 extends layout
 block content
-  #{message}
+  if(messages.info)
+    .message.info
+      span= messages.info
   form(method='POST')
     legend Send Email
     .form-group

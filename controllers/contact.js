@@ -5,7 +5,6 @@
 
 exports.index = function(req, res) {
   res.render('contact', {
-    title: 'Contact',
-    message: null
+    title: 'Contact'
   });
 }

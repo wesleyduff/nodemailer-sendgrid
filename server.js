@@ -1,4 +1,6 @@
+var flash = require('express-flash');
 var express = require('express');
+var cookieParser = require('cookie-parser');
 var path = require('path');
 
 var nodemailer = require('nodemailer');
@@ -33,6 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(flash());
 
 /**
  * Main routes.
@@ -50,8 +53,8 @@ app.use(express.static(path.join(__dirname, 'public')));
  	//create the nodemailer
  	var client = nodemailer.createTransport(sgTransport({
         auth: {
-          api_user: '<your username>',
-          api_key: '<your password>'
+          api_user: 'wesduff',
+          api_key: '@Ab34125'
         }
     }));
  	var mailOptions = {
@@ -72,7 +75,7 @@ app.use(express.static(path.join(__dirname, 'public')));
     		message = "Email has been sent!";
     		console.log('Message sent: ' + info.response);
     	}
-        req.message = message;
+        req.flash('info', message);
         res.redirect('contact');
       });
  });
