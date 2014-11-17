@@ -53,8 +53,8 @@ app.use(flash());
  	//create the nodemailer
  	var client = nodemailer.createTransport(sgTransport({
         auth: {
-          api_user: 'wesduff',
-          api_key: '@Ab34125'
+          api_user: '<your login>',
+          api_key: '<your password>'
         }
     }));
  	var mailOptions = {
